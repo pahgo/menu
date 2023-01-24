@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th ng-bind="translation['str.product']" class="text-center"></th>
+                    <th ng-bind="translation['str.units']" class="text-center"></th>
+                    <th ng-bind="translation['str.unitprice']" ng-if="content.configuration.showOrderPrices"></th>
+                    <th ng-bind="translation['str.subtotal']" ng-if="content.configuration.showOrderPrices"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in cart">
+                    <th scope="row"><img ng-src="{{product.image}}" style="height:2rem;width: 2rem;"></th>
+                    <td ng-bind="translation[product.name]" class="text-center"></td>
+                    <td style="display:block" class="text-center">
+                        <a style="display:inline" class="btn btn-primary" ng-click="order(product, -1)" ng-if="product.qty > 1">
+                            <i class="fa fa-minus"></i>
+                        </a>
+                        <a style="display:inline" class="btn btn-warning" ng-click="remove(product)" ng-if="1 >= product.qty">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        &nbsp;<h4 style="display:inline" class="card-text centered" ng-bind="orderedAmount(product)"></h4>&nbsp;
+                        <a style="display:inline" class="btn btn-primary" ng-click="order(product)">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </td>
+                    <td ng-bind="product.price | currency:'€ '" ng-if="content.configuration.showOrderPrices"></td>
+                    <td ng-bind="product.qty * product.price | currency:'€ '" ng-if="content.configuration.showOrderPrices"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th scope="row" ng-if="content.configuration.showOrderPrices">Total</th>
+                    <th ng-bind="totalAccount() | currency:'€ '" ng-if="content.configuration.showOrderPrices"></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

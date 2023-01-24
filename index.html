@@ -1,0 +1,142 @@
+<html lang="es" ng-app="myApp" ng-controller="pagesCtr"><head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.8.3/angular-resource.min.js" integrity="sha512-+ymw+FkoDhPw+7/1DWVtASoICv7lwuvpkbVFqc4ASu1D385wKiLHu4ofOOxhpTlWoza/yIivwwteembPbeBuMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" type="image/png" href="https://github.com/pahgo/storage/raw/master/dragon_128.png">
+<title>{{title}}</title>
+<body style="padding-top: 5rem; padding-bottom: 5rem;">
+	<!-- from https://getbootstrap.com/docs/3.4/examples/navbar-fixed-top/ -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 4rem">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<i class="fa fa-home" aria-hidden="true"></i>&nbsp;
+					<span ng-bind="content.title"></span>
+				</a>
+			</div>
+			{{section}}
+			<div class="nav-collapse" id="navbarResponsive">
+				<ul class="nav">
+					<li class="nav-item active">
+						<img src="images/es.svg" width="5%" ng-click="translate('es_ES')"/>
+						<img src="images/gb.svg" width="5%" ng-click="translate('en_GB')"/>
+						<img src="images/fr.svg" width="5%" ng-click="translate('fr_FR')"/>
+					</li>
+				</ul>
+			</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+	</nav>
+
+	<ng-view></ng-view>
+
+	<footer class="fixed-bottom" >
+		<div class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
+			<a ng-href="#!/order" class="btn btn-primary" style="display: block;">
+				<i class="fa fa-list" style="display: inline;"></i>&nbsp;
+				<h4 ng-bind="translation['str.myorder']" style="display: inline;"></h4>
+			</a>
+		</div>
+	</footer>
+
+<script>
+var section = '';
+var app = angular.module("myApp", ['ngRoute', 'ngResource'])
+    .config(['$compileProvider', '$routeProvider', function ($compileProvider, $routeProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript|acestream):/);
+		$routeProvider
+		.when("/", {templateUrl : "main.html"})
+		.when("/order", {templateUrl : "order.html"})
+		.when("/product/:product", {
+				templateUrl : "products.html",
+				controller: "productsCtr"
+			});
+    }]);
+app.service('translationService', function($resource) {
+	// From https://plnkr.co/edit/NAaJ9v6kULqtuE0Vk2p4?preview
+	this.getTranslation = function($scope, language) {
+		$resource('menu.json').get(function (data) {
+			$scope.content = data;
+			$scope.translation = {...data.translations['es_ES'],...data.translations[language]}
+		});
+	};
+});
+
+app.controller('productsCtr', function($scope, $http, $routeParams, translationService) {
+	$scope.section = $routeParams.product;
+	section = $routeParams.product;
+});
+
+app.controller('pagesCtr', function($scope, $http, translationService, $locale) {
+	$scope.section = section;
+	console.log(section)
+	$http.get('menu.json', {headers:{'Cache-Control': 'no-cache'}}).then(function(response) {
+		$scope.content = response.data;
+		$scope.title = $scope.content.title;
+	});
+	$scope.translate = function(selectedLanguage){
+		translationService.getTranslation($scope, selectedLanguage);
+   };
+   $scope.translate('es_ES');
+
+   //Cart
+   //Review, hacked to build the order table
+   $scope.cart = []; //TODO; Move to localStorage to keep the session between reloads
+
+   var findProductInCart = function(product) {
+		return $scope.cart.find(item => item.name === product.name);
+	};
+
+	$scope.setOrdering = function(product) {
+		$scope.ordering = product;
+	};
+
+	$scope.order = function(product, qty = 1) {
+		var found = findProductInCart(product);
+		if (found) {
+			found.qty += qty;
+			if (found.qty === 0) {
+				$scope.remove(product);
+			}
+	    } else {
+			$scope.cart.push(angular.copy({...product, qty: 1}));
+		}
+	}
+
+	$scope.remove = function(product) {
+		var found = findProductInCart(product);
+		const index = $scope.cart.indexOf(found);
+		const x = $scope.cart.splice(index, 1);
+	}
+
+	$scope.ordered = function(product) {
+		var found = findProductInCart(product);
+		if (found) {
+			return found.qty > 0;
+		}
+		return false;
+	}
+
+
+	$scope.orderedAmount = function(product) {
+		var found = findProductInCart(product);
+		if (found) {
+			return 'x ' + found.qty;
+		}
+	}
+
+	$scope.totalAccount = function() {
+		return $scope.cart.map(i => i.qty * i.price) //Map to multiply units per price
+			.filter(v => !Number.isNaN(v)) //Filter out NaN values, in case a product has no price
+			.reduce((partialSum, a) => partialSum + a, 0); //Sum the subtotals
+	}
+
+});
+</script>
+
+</body>
+</html>

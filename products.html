@@ -1,0 +1,29 @@
+<div class="container">
+    <!-- from https://bootstrapcreative.com/pattern/responsive-card-deck-example/ -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-3">
+        <div ng-repeat="product in content.menu[section].menu.content" class="col mb-4 text-center">
+            <div id="product" class="card" style="width: 18rem;height:26rem;" ng-click="setOrdering(product.name)">
+                <div class="card-img-top">
+                    <img ng-src="{{product.image}}" style="height:18rem;width: 18rem;">
+                </div>
+                <div class="card-body">
+                    <span class="card-title" style="display: block">
+                        <h5 style="display: inline" ng-bind="translation[product.name]"></h5>
+                        <h7 style="display: inline" ng-bind="product.price | currency:'€ '"/></h7>
+                    </span>
+                    <a class="btn btn-primary" ng-bind="translation['str.order']" ng-if="ordering === product.name && !ordered(product)" ng-click="order(product)"></a>
+                    <div style="display:block">
+                        <a style="display:inline" class="btn btn-primary" ng-if="ordering === product.name && ordered(product)" ng-click="order(product, -1)">
+                            <i class="fa fa-minus"></i>
+                        </a>
+                        &nbsp;<h4 style="display:inline" class="card-text centered" ng-if="ordered(product)" ng-bind="orderedAmount(product)"></h4>&nbsp;
+                        <a style="display:inline" class="btn btn-primary" ng-if="ordering === product.name && ordered(product)" ng-click="order(product)">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                    <p class="card-text" ng-bind="translation[product.description]" ng-if="ordering !== product.name"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

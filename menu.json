@@ -1,0 +1,116 @@
+{
+    "title": "La Bodega",
+    "icon": "",
+    "menu": {
+        "showSections": ["bebidas", "entrantes", "postres"],
+        "bebidas": {
+            "title": "str.bebidas",
+            "image": "images/drink-icon.svg",
+            "menu": {
+                "content": [
+                    {
+                        "selectable": false,
+                        "name": "str.agua",
+                        "image": "images/profile-default-svgrepo-com.svg",
+                        "description": "str.agua.description"
+                    },
+                    {
+                        "name": "str.cerveza",
+                        "image": "images/beer-mug-icon.svg",
+                        "price": "1.20"
+
+                    },
+                    {
+                        "name": "str.cocacola",
+                        "image": "images/profile-default-svgrepo-com.svg",
+                        "price": "1.20"
+                    },
+                    {
+                        "name": "str.nestea",
+                        "image": "images/profile-default-svgrepo-com.svg",
+                        "price": "1.20"
+                    }
+                ]
+            }
+        },
+        "entrantes": {
+            "title": "str.entrantes",
+            "image": "images/profile-default-svgrepo-com.svg",
+            "menu": {
+                "content": [
+                    {
+                        "name": "str.marinera",
+                        "image": "images/profile-default-svgrepo-com.svg",
+                        "price": "1.50"
+                    },
+                    {
+                        "name": "str.marinero",
+                        "image": "images/profile-default-svgrepo-com.svg",
+                        "price": "1.50"
+                    }
+                ]
+            }
+        },
+        "postres": {
+            "title": "str.postres",
+            "image": "images/profile-default-svgrepo-com.svg",
+            "menu": {
+                "content": [
+                    {
+                        "name": "str.marinera",
+                        "image": "images/profile-default-svgrepo-com.svg",
+                        "price": "1.50"
+                    },
+                    {
+                        "name": "str.marinero",
+                        "image": "images/profile-default-svgrepo-com.svg",
+                        "price": "1.50"
+                    }
+                ]
+            }
+        }
+    },
+    "translations": {
+        "en_GB": {
+            "str.myorder": "My Order",
+            "str.product": "Product",
+            "str.unitprice": "Price",
+            "str.units": "Units",
+            "str.subtotal": "Total",
+            "str.entrantes": "Starters",
+            "str.postres": "Dessert",
+            "str.bebidas": "Drinks",
+            "str.order": "Order",
+            "str.agua": "Water",
+            "str.agua.description": "Refresca, es barata",
+            "str.cerveza": "Beer",
+            "str.cocacola": "Coca-Cola",
+            "str.nestea": "Nestea"
+        },
+        "es_ES": {
+            "str.myorder": "Mi Pedido",
+            "str.product": "Producto",
+            "str.unitprice": "Precio",
+            "str.units": "Cantidad",
+            "str.subtotal": "Total",
+            "str.entrantes": "Entrantes",
+            "str.postres": "Postres",
+            "str.marinera": "Marinera",
+            "str.marinero": "Marinero",
+            "str.bebidas": "Bebidas",
+            "str.order": "Pedir",
+            "str.agua": "Agua",
+            "str.agua.description": "Esto es una descripción para poner ingredientes y cosas de esas",
+            "str.cerveza": "Cerveza",
+            "str.cocacola": "Coca-Cola",
+            "str.nestea": "Nestea"
+        },
+        "fr_FR": {
+            "str.agua": "L'eau",
+            "str.product": "Produit"
+        }
+    },
+    "configuration": {
+        "showOrderPrices": false
+    }
+}
