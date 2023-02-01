@@ -6,42 +6,39 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="shortcut icon" type="image/png" href="https://github.com/pahgo/storage/raw/master/dragon_128.png">
 <title>{{title}}</title>
-<body style="padding-top: 5rem; padding-bottom: 5rem;">
+<head>
+    <style type="text/css">
+    .flags {
+        width: 10%;
+    }
+    </style>
+</head>
+<body style="padding-top: 7rem; padding-bottom: 5rem;background-color: #eee;">
 	<!-- from https://getbootstrap.com/docs/3.4/examples/navbar-fixed-top/ -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 4rem">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">
-					<i class="fa fa-home" aria-hidden="true"></i>&nbsp;
-					<span ng-bind="content.title"></span>
+	<div class="container-fluid" >
+		<nav class="navbar navbar-dark bg-dark fixed-top">
+			<div style="display:block">
+				<a class="navbar-brand" href="#" style="display:inline">
+					<i class="fa fa-home fa-3x"></i>&nbsp;
+					<span ng-bind="content.title" class="display-4"></span>
+				</a>
+				<span class="navbar-brand text-center" style="display:inline;padding-left: 20%;">
+					<img src="images/es.svg" class="flags" ng-click="translate('es_ES')" style="vertical-align: baseline;"/>&nbsp;&nbsp;&nbsp;
+					<img src="images/gb.svg" class="flags" ng-click="translate('en_GB')" style="vertical-align: baseline;"/>&nbsp;&nbsp;&nbsp;
+				</span>
+			</div>
+		</nav>
+		<ng-view></ng-view>
+
+		<footer class="fixed-bottom" >
+			<div class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
+				<a ng-href="#!/order" class="btn btn-primary" style="display: block;">
+					<i class="fa fa-list" style="display: inline;"></i>&nbsp;
+					<h4 ng-bind="translation['str.myorder']" style="display: inline;"></h4>
 				</a>
 			</div>
-			{{section}}
-			<div class="nav-collapse" id="navbarResponsive">
-				<ul class="nav">
-					<li class="nav-item active">
-						<img src="images/es.svg" width="5%" ng-click="translate('es_ES')"/>
-						<img src="images/gb.svg" width="5%" ng-click="translate('en_GB')"/>
-						<img src="images/fr.svg" width="5%" ng-click="translate('fr_FR')"/>
-					</li>
-				</ul>
-			</div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-		</div>
-	</nav>
-
-	<ng-view></ng-view>
-
-	<footer class="fixed-bottom" >
-		<div class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
-			<a ng-href="#!/order" class="btn btn-primary" style="display: block;">
-				<i class="fa fa-list" style="display: inline;"></i>&nbsp;
-				<h4 ng-bind="translation['str.myorder']" style="display: inline;"></h4>
-			</a>
-		</div>
-	</footer>
+		</footer>
+	</div>
 
 <script>
 var section = '';
@@ -71,7 +68,7 @@ app.controller('productsCtr', function($scope, $http, $routeParams, translationS
 	section = $routeParams.product;
 });
 
-app.controller('pagesCtr', function($scope, $http, translationService, $locale) {
+app.controller('pagesCtr', function($scope, $http, translationService, $locale, $window) {
 	$scope.section = section;
 	console.log(section)
 	$http.get('menu.json', {headers:{'Cache-Control': 'no-cache'}}).then(function(response) {
@@ -80,14 +77,18 @@ app.controller('pagesCtr', function($scope, $http, translationService, $locale) 
 	});
 	$scope.translate = function(selectedLanguage){
 		translationService.getTranslation($scope, selectedLanguage);
-   };
-   $scope.translate('es_ES');
+	};
+	$scope.translate('es_ES');
 
-   //Cart
-   //Review, hacked to build the order table
-   $scope.cart = []; //TODO; Move to localStorage to keep the session between reloads
+	$scope.redirect = function(product) {
+			$window.location.href = `#!/product/${product}`;
+	}
 
-   var findProductInCart = function(product) {
+	//Cart
+	//Review, hacked to build the order table
+	$scope.cart = []; //TODO; Move to localStorage to keep the session between reloads
+
+	var findProductInCart = function(product) {
 		return $scope.cart.find(item => item.name === product.name);
 	};
 
@@ -102,7 +103,7 @@ app.controller('pagesCtr', function($scope, $http, translationService, $locale) 
 			if (found.qty === 0) {
 				$scope.remove(product);
 			}
-	    } else {
+	    } else if (qty > 0) {
 			$scope.cart.push(angular.copy({...product, qty: 1}));
 		}
 	}
@@ -125,8 +126,9 @@ app.controller('pagesCtr', function($scope, $http, translationService, $locale) 
 	$scope.orderedAmount = function(product) {
 		var found = findProductInCart(product);
 		if (found) {
-			return 'x ' + found.qty;
+			return found.qty;
 		}
+		return 0;
 	}
 
 	$scope.totalAccount = function() {

@@ -1,14 +1,13 @@
-<div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-3">
-        <div ng-repeat="section in content.menu.showSections" class="col mb-4 text-center">
-            <a id="product" class="card" style="width: 18rem;height:26rem;" ng-href="#!/product/{{section}}">
-                <div class="card-img-top">
-                    <img ng-src="{{content.menu[section].image}}" alt="{{product.name}}" style="height:18rem;width: 18rem;">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title" ng-bind="translation[content.menu[section].title]"></h5>
-                </div>
-            </a>
+<div class="card mb-3" ng-repeat="section in content.menu.showSections">
+    <div class="row no-gutters" ng-click="redirect(section)">
+        <div class="col-md-4">
+            <img ng-src="{{content.menu[section].image}}" class="card-img" style="height:179px;width:183px;">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title display-4" ng-bind="translation[content.menu[section].title]"></h5>
+                <p class="card-text" ng-bind="translation[content.menu[section].text]"></p>
+            </div>
         </div>
     </div>
 </div>

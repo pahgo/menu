@@ -6,13 +6,15 @@
         "bebidas": {
             "title": "str.bebidas",
             "image": "images/drink-icon.svg",
+            "text": "str.bebidas.text",
             "menu": {
                 "content": [
                     {
-                        "selectable": false,
+                        "nonSelectable": true,
                         "name": "str.agua",
                         "image": "images/profile-default-svgrepo-com.svg",
-                        "description": "str.agua.description"
+                        "description": "str.agua.description",
+                        "alergens": "str.agua.alergens"
                     },
                     {
                         "name": "str.cerveza",
@@ -47,6 +49,11 @@
                         "name": "str.marinero",
                         "image": "images/profile-default-svgrepo-com.svg",
                         "price": "1.50"
+                    },
+                    {
+                        "name": "str.pulpo",
+                        "image": "images/profile-default-svgrepo-com.svg",
+                        "price": "str.segunMercado"
                     }
                 ]
             }
@@ -97,13 +104,17 @@
             "str.postres": "Postres",
             "str.marinera": "Marinera",
             "str.marinero": "Marinero",
+            "str.pulpo": "Pulpo",
             "str.bebidas": "Bebidas",
+            "str.bebidas.text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "str.order": "Pedir",
             "str.agua": "Agua",
             "str.agua.description": "Esto es una descripción para poner ingredientes y cosas de esas",
+            "str.agua.alergens": "Alérgenos van aquí",
             "str.cerveza": "Cerveza",
             "str.cocacola": "Coca-Cola",
-            "str.nestea": "Nestea"
+            "str.nestea": "Nestea",
+            "str.segunMercado": "Según Mercado"
         },
         "fr_FR": {
             "str.agua": "L'eau",
@@ -111,6 +122,6 @@
         }
     },
     "configuration": {
-        "showOrderPrices": false
+        "showOrderPrices": true
     }
 }
