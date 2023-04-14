@@ -1,144 +1,304 @@
-<html lang="es" ng-app="myApp" ng-controller="pagesCtr"><head>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.8.3/angular-resource.min.js" integrity="sha512-+ymw+FkoDhPw+7/1DWVtASoICv7lwuvpkbVFqc4ASu1D385wKiLHu4ofOOxhpTlWoza/yIivwwteembPbeBuMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="shortcut icon" type="image/png" href="https://github.com/pahgo/storage/raw/master/dragon_128.png">
-<title>{{title}}</title>
-<head>
-    <style type="text/css">
-    .flags {
-        width: 10%;
-    }
-    </style>
-</head>
-<body style="padding-top: 7rem; padding-bottom: 5rem;background-color: #eee;">
-	<!-- from https://getbootstrap.com/docs/3.4/examples/navbar-fixed-top/ -->
-	<div class="container-fluid" >
-		<nav class="navbar navbar-dark bg-dark fixed-top">
-			<div style="display:block">
-				<a class="navbar-brand" href="#" style="display:inline">
-					<i class="fa fa-home fa-3x"></i>&nbsp;
-					<span ng-bind="content.title" class="display-4"></span>
-				</a>
-				<span class="navbar-brand text-center" style="display:inline;padding-left: 20%;">
-					<img src="images/es.svg" class="flags" ng-click="translate('es_ES')" style="vertical-align: baseline;"/>&nbsp;&nbsp;&nbsp;
-					<img src="images/gb.svg" class="flags" ng-click="translate('en_GB')" style="vertical-align: baseline;"/>&nbsp;&nbsp;&nbsp;
-				</span>
-			</div>
-		</nav>
-		<ng-view></ng-view>
+<!DOCTYPE html>
+<html lang="es" ng-app="myApp" ng-controller="mainCtrl"><head>
 
-		<footer class="fixed-bottom" >
-			<div class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
-				<a ng-href="#!/order" class="btn btn-primary" style="display: block;">
-					<i class="fa fa-list" style="display: inline;"></i>&nbsp;
-					<h4 ng-bind="translation['str.myorder']" style="display: inline;"></h4>
-				</a>
-			</div>
-		</footer>
-	</div>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.8.3/angular-resource.min.js" integrity="sha512-+ymw+FkoDhPw+7/1DWVtASoICv7lwuvpkbVFqc4ASu1D385wKiLHu4ofOOxhpTlWoza/yIivwwteembPbeBuMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <title ng-bind="translation['str.title']">La Bodega</title>
+  <!-- Favicons -->
+  <link rel="shortcut icon" type="image/png" href="https://github.com/pahgo/storage/raw/master/dragon_128.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <h1>{{translation['str.title']}}<span>.</span></h1>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="#menu" ng-bind="translation['str.menu']">Carta</a></li>
+          <li><a href="#contact" ng-bind="translation['str.contact']">Contacto</a></li>
+          <li class="dropdown"><a href="#"><span>Idioma/Language</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a ng-click="translate('es_ES')"><img src="images/es.svg" class="flags" style="vertical-align: baseline;height: 2em;"/>Español</a></li>
+              <li><a ng-click="translate('en_GB')"><img src="images/gb.svg" class="flags" style="vertical-align: baseline;height: 2em;"/>English</a></li>
+              <!-- <li><a ng-click="translate('fr_FR')"><img src="images/fr.svg" class="flags" style="vertical-align: baseline;height: 2em;"/>Français</a></li> -->
+            </ul>
+          </li>
+        </ul>
+      </nav><!-- .navbar -->
+
+      <a class="btn-book-a-table" ng-bind="translation['str.myorder']">Mi Pedido</a>
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+    <section id="/menu" class="menu">
+      <div class="container mt-2" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2 ng-bind="translation['str.menu']">Carta</h2>
+          <p>{{translation['str.checkour']}} <span>{{translation['str.menu']}}</span></p>
+        </div>
+
+        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+
+          <li class="nav-item" ng-repeat="section in content.menu.showSections">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#{{section}}" ng-class="{'active show': $index === 0}">
+              <h4>{{translation[content.menu[section].title]}}</h4>
+            </a>
+          </li><!-- End tab nav item -->
+        </ul>
+
+        <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
+
+          <div class="tab-pane fade" ng-repeat="section in content.menu.showSections" id="{{section}}" ng-class="{'active show': $index === 0}">
+
+            <div class="tab-header text-center">
+              <p ng-bind="translation['str.menu']"></p>
+              <h3 ng-bind="translation[content.menu[section].title]"></h3>
+            </div>
+
+            <div class="row gy-5">
+
+              <div class="col-lg-4 menu-item" ng-repeat="product in content.menu[section].menu.content">
+                <img ng-src="{{product.image}}" class="menu-img img-fluid" alt="">
+                <h4 ng-bind="translation[product.name]"></h4>
+                <p class="ingredients" ng-bind="translation[product.ingredients]"></p>
+                <p class="alergens" ng-bind="translation[product.alergens]"></p>
+                <p class="price" ng-bind="product.price | currency:'€ '"></p>
+                <!-- Not ready -->
+                <!-- <div class="mt-4 text-center" ng-if="!product.nonSelectable">
+                  <a style="display:inline" class="btn btn-primary" ng-click="order(product, -1)">
+                      <i class="fa fa-minus"></i>
+                  </a>
+                  <h3 style="display:inline" class="card-text mb-1 text-center" ng-bind="orderedAmount(product)"></h3>&nbsp;
+                  <a style="display:inline" class="btn btn-primary" ng-click="order(product)">
+                      <i class="fa fa-plus"></i>
+                  </a>
+                </div> -->
+              </div><!-- Menu Item -->
+            </div>
+
+            <!-- <div class="col-lg-4 menu-item">
+              <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
+              <h4>Magnam Tiste</h4>
+              <p class="ingredients">Lorem, deren, trataro, filede, nerada</p>
+              <p class="price">$5.95</p>
+            </div> -->
+          </div><!-- End Repeat Menu Content -->
+        </div>
+      </div>
+    </section><!-- End Menu Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="/contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2 ng-bind="translation['str.contact']">Contacto</h2>
+          <p>{{translation['str.needhelp']}}<span>{{translation['str.contactus']}}</span></p>
+        </div>
+
+        <div class="mb-3">
+          <iframe style="border:0; width: 100%; height: 350px;" frameborder="0" allowfullscreen src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12595.367135931612!2d-1.3532948!3d37.8873826!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd64872f579e05b1%3A0x874b5c22389897f6!2sLa%20Bodega!5e0!3m2!1sen!2ses!4v1681474684596!5m2!1sen!2ses"></iframe>
+        </div><!-- End Google Maps -->
+
+        <div class="row gy-4">
+
+          <div class="col-md-6">
+            <div class="info-item  d-flex align-items-center">
+              <i class="icon bi bi-map flex-shrink-0"></i>
+              <div>
+                <h3 ng-bind="translation['str.ouraddress']">Nuestra Dirección</h3>
+                <p ng-bind="translation['str.address']">C. Murcia, 10, 30892 Librilla, Murcia</p>
+              </div>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-md-6">
+            <div class="info-item  d-flex align-items-center">
+              <i class="icon bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3 ng-bind="translation['str.callus']">Llamar</h3>
+                <a href="{{'tel:' + translation['str.phone']}}" ng-bind="translation['str.phone']"></a>
+              </div>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-md-6">
+            <div class="info-item  d-flex align-items-center">
+              <i class="icon bi bi-share flex-shrink-0"></i>
+              <div>
+                <h3 ng-bind="translation['str.openinghours.title']">Horario de Apertura</h3>
+                <div ng-bind="translation['str.openinghours.hours']"></div>
+              </div>
+            </div>
+          </div><!-- End Info Item -->
+
+        </div>
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <a id="btn-back-to-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script>
+    let mybutton = document.getElementById("btn-back-to-top");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+      scrollFunction();
+    };
+
+    function scrollFunction() {
+      if (
+        document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20
+      ) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+    // When the user clicks on the button, scroll to the top of the document
+    mybutton.addEventListener("click", backToTop);
+
+    function backToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
+</body>
 
 <script>
-var section = '';
-var app = angular.module("myApp", ['ngRoute', 'ngResource'])
-    .config(['$compileProvider', '$routeProvider', function ($compileProvider, $routeProvider) {
+  var app = angular.module("myApp", ['ngRoute', 'ngResource'])
+    .config(['$locationProvider', function($locationProvider) {
+          $locationProvider.hashPrefix('');
+      }])
+    .config(['$compileProvider', function ($compileProvider) {
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript|acestream):/);
-		$routeProvider
-		.when("/", {templateUrl : "main.html"})
-		.when("/order", {templateUrl : "order.html"})
-		.when("/product/:product", {
-				templateUrl : "products.html",
-				controller: "productsCtr"
-			});
     }]);
-app.service('translationService', function($resource) {
-	// From https://plnkr.co/edit/NAaJ9v6kULqtuE0Vk2p4?preview
-	this.getTranslation = function($scope, language) {
-		$resource('menu.json').get(function (data) {
-			$scope.content = data;
-			$scope.translation = {...data.translations['es_ES'],...data.translations[language]}
-		});
-	};
-});
+  app.service('translationService', function($resource) {
+    // From https://plnkr.co/edit/NAaJ9v6kULqtuE0Vk2p4?preview
+    this.getTranslation = function($scope, language) {
+      $resource('menu.json').get(function (data) {
+        $scope.content = data;
+        $scope.translation = {...data.translations['es_ES'],...data.translations[language]}
+      });
+    };
+  });
 
-app.controller('productsCtr', function($scope, $http, $routeParams, translationService) {
-	$scope.section = $routeParams.product;
-	section = $routeParams.product;
-});
+  app.controller('mainCtrl', function($scope, $http, translationService, $locale, $window) {
+    $http.get('menu.json', {headers:{'Cache-Control': 'no-cache'}}).then(function(response) {
+      $scope.content = response.data;
+      $scope.title = $scope.content.title;
+    });
+    $scope.translate = function(selectedLanguage){
+      translationService.getTranslation($scope, selectedLanguage);
+    };
+    $scope.translate('es_ES');
 
-app.controller('pagesCtr', function($scope, $http, translationService, $locale, $window) {
-	$scope.section = section;
-	console.log(section)
-	$http.get('menu.json', {headers:{'Cache-Control': 'no-cache'}}).then(function(response) {
-		$scope.content = response.data;
-		$scope.title = $scope.content.title;
-	});
-	$scope.translate = function(selectedLanguage){
-		translationService.getTranslation($scope, selectedLanguage);
-	};
-	$scope.translate('es_ES');
+    $scope.redirect = function(product) {
+        $window.location.href = `#!/product/${product}`;
+    }
 
-	$scope.redirect = function(product) {
-			$window.location.href = `#!/product/${product}`;
-	}
+    //Cart
+    //Review, hacked to build the order table
+    $scope.cart = []; //TODO; Move to localStorage to keep the session between reloads
 
-	//Cart
-	//Review, hacked to build the order table
-	$scope.cart = []; //TODO; Move to localStorage to keep the session between reloads
+    var findProductInCart = function(product) {
+      return $scope.cart.find(item => item.name === product.name);
+    };
 
-	var findProductInCart = function(product) {
-		return $scope.cart.find(item => item.name === product.name);
-	};
+    $scope.setOrdering = function(product) {
+      $scope.ordering = product;
+    };
 
-	$scope.setOrdering = function(product) {
-		$scope.ordering = product;
-	};
+    $scope.order = function(product, qty = 1) {
+      var found = findProductInCart(product);
+      if (found) {
+        found.qty += qty;
+        if (found.qty === 0) {
+          $scope.remove(product);
+        }
+        } else if (qty > 0) {
+        $scope.cart.push(angular.copy({...product, qty: 1}));
+      }
+    }
 
-	$scope.order = function(product, qty = 1) {
-		var found = findProductInCart(product);
-		if (found) {
-			found.qty += qty;
-			if (found.qty === 0) {
-				$scope.remove(product);
-			}
-	    } else if (qty > 0) {
-			$scope.cart.push(angular.copy({...product, qty: 1}));
-		}
-	}
+    $scope.remove = function(product) {
+      var found = findProductInCart(product);
+      const index = $scope.cart.indexOf(found);
+      const x = $scope.cart.splice(index, 1);
+    }
 
-	$scope.remove = function(product) {
-		var found = findProductInCart(product);
-		const index = $scope.cart.indexOf(found);
-		const x = $scope.cart.splice(index, 1);
-	}
-
-	$scope.ordered = function(product) {
-		var found = findProductInCart(product);
-		if (found) {
-			return found.qty > 0;
-		}
-		return false;
-	}
+    $scope.ordered = function(product) {
+      var found = findProductInCart(product);
+      if (found) {
+        return found.qty > 0;
+      }
+      return false;
+    }
 
 
-	$scope.orderedAmount = function(product) {
-		var found = findProductInCart(product);
-		if (found) {
-			return found.qty;
-		}
-		return 0;
-	}
+    $scope.orderedAmount = function(product) {
+      var found = findProductInCart(product);
+      if (found) {
+        return found.qty;
+      }
+      return 0;
+    }
 
-	$scope.totalAccount = function() {
-		return $scope.cart.map(i => i.qty * i.price) //Map to multiply units per price
-			.filter(v => !Number.isNaN(v)) //Filter out NaN values, in case a product has no price
-			.reduce((partialSum, a) => partialSum + a, 0); //Sum the subtotals
-	}
+    $scope.totalAccount = function() {
+      return $scope.cart.map(i => i.qty * i.price) //Map to multiply units per price
+        .filter(v => !Number.isNaN(v)) //Filter out NaN values, in case a product has no price
+        .reduce((partialSum, a) => partialSum + a, 0); //Sum the subtotals
+    }
+  });
 
-});
 </script>
 
-</body>
 </html>

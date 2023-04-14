@@ -2,7 +2,7 @@
     "title": "La Bodega",
     "icon": "",
     "menu": {
-        "showSections": ["bebidas", "entrantes", "postres"],
+        "showSections": ["bebidas", "tapas", "compartir", "postres"],
         "bebidas": {
             "title": "str.bebidas",
             "image": "images/drink-icon.svg",
@@ -12,31 +12,32 @@
                     {
                         "nonSelectable": true,
                         "name": "str.agua",
-                        "image": "images/profile-default-svgrepo-com.svg",
+                        "image": "../images/profile-default-svgrepo-com.svg",
                         "description": "str.agua.description",
-                        "alergens": "str.agua.alergens"
+                        "alergens": "str.agua.alergens",
+                        "ingredients": "str.agua.ingredients"
                     },
                     {
                         "name": "str.cerveza",
-                        "image": "images/beer-mug-icon.svg",
+                        "image": "../images/beer-mug-icon.svg",
                         "price": "1.20"
 
                     },
                     {
                         "name": "str.cocacola",
-                        "image": "images/profile-default-svgrepo-com.svg",
+                        "image": "../images/profile-default-svgrepo-com.svg",
                         "price": "1.20"
                     },
                     {
                         "name": "str.nestea",
-                        "image": "images/profile-default-svgrepo-com.svg",
+                        "image": "../images/profile-default-svgrepo-com.svg",
                         "price": "1.20"
                     }
                 ]
             }
         },
-        "entrantes": {
-            "title": "str.entrantes",
+        "tapas": {
+            "title": "str.tapas",
             "image": "images/profile-default-svgrepo-com.svg",
             "menu": {
                 "content": [
@@ -75,16 +76,47 @@
                     }
                 ]
             }
+        },
+        "compartir": {
+            "title": "str.compartir",
+            "menu": {
+                "content": [
+                    {
+                        "name": "str.alcachofasconfoie",
+                        "image": "images/alcachofasConFoie.jpg",
+                        "price": "12"
+                    },
+                    {
+                        "name": "str.jamoncocido",
+                        "image": "images/jamoncocido.jpg",
+                        "price": "9"
+                    }
+                ]
+            }
         }
     },
     "translations": {
         "en_GB": {
+            "str.menu": "Menu",
+            "str.contact": "Contact",
             "str.myorder": "My Order",
+            "str.checkour": "Check our",
+            "str.needhelp": "Need Help?",
+            "str.contactus": "Contact Us",
+            "str.ouraddress": "Our Address",
+            "str.address": "C. Murcia, 10, 30892 Librilla, Murcia",
+            "str.callus": "Call Us",
+            "str.phone": "+34 600 01 23 45",
+            "str.openinghours.title": "Opening Hours",
+            "str.openinghours.hours": "8AM - 16PM. \r\nTuesday: Closed.",
+            "str.compartir": "To Share",
+            "str.jamoncocido": "",
+
             "str.product": "Product",
             "str.unitprice": "Price",
             "str.units": "Units",
             "str.subtotal": "Total",
-            "str.entrantes": "Starters",
+            "str.tapas": "Tapas",
             "str.postres": "Dessert",
             "str.bebidas": "Drinks",
             "str.order": "Order",
@@ -95,22 +127,39 @@
             "str.nestea": "Nestea"
         },
         "es_ES": {
+            "str.title": "La Bodega",
+            "str.menu": "Carta",
+            "str.contact": "Contacto",
             "str.myorder": "Mi Pedido",
+            "str.checkour": "Comprueba nuestra",
+            "str.needhelp": "¿Necesita ayuda?",
+            "str.contactus": "Contacte con nostros",
+            "str.ouraddress": "Nuestra Dirección",
+            "str.address": "C. Murcia, 10, 30892 Librilla, Murcia",
+            "str.callus": "Teléfono",
+            "str.phone": "+34 600 01 23 45",
+            "str.openinghours.title": "Horario de Apertura",
+            "str.openinghours.hours": "8AM - 16PM. \r\nMartes: Cerrado.",
+            "str.compartir": "Para Compartir",
+            "str.alcachofasconfoie": "Alcachofas con Foie y Jamón",
+            "str.jamoncocido": "Jamón Cocido",
+
             "str.product": "Producto",
             "str.unitprice": "Precio",
             "str.units": "Cantidad",
             "str.subtotal": "Total",
-            "str.entrantes": "Entrantes",
+            "str.tapas": "Tapas",
             "str.postres": "Postres",
             "str.marinera": "Marinera",
             "str.marinero": "Marinero",
             "str.pulpo": "Pulpo",
             "str.bebidas": "Bebidas",
-            "str.bebidas.text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "str.bebidas.text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             "str.order": "Pedir",
             "str.agua": "Agua",
             "str.agua.description": "Esto es una descripción para poner ingredientes y cosas de esas",
             "str.agua.alergens": "Alérgenos van aquí",
+            "str.agua.ingredients": "Ingredientes van aquí",
             "str.cerveza": "Cerveza",
             "str.cocacola": "Coca-Cola",
             "str.nestea": "Nestea",
