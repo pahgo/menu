@@ -5,32 +5,32 @@
         "showSections": ["bebidas", "tapas", "compartir", "postres"],
         "bebidas": {
             "title": "str.bebidas",
-            "image": "images/drink-icon.svg",
+            "image": "assets/img/drink-icon.svg",
             "text": "str.bebidas.text",
             "menu": {
                 "content": [
                     {
                         "nonSelectable": true,
                         "name": "str.agua",
-                        "image": "../images/profile-default-svgrepo-com.svg",
+                        "image": "assets/img/profile-default-svgrepo-com.svg",
                         "description": "str.agua.description",
                         "alergens": "str.agua.alergens",
                         "ingredients": "str.agua.ingredients"
                     },
                     {
                         "name": "str.cerveza",
-                        "image": "../images/beer-mug-icon.svg",
+                        "image": "assets/img/beer-mug-icon.svg",
                         "price": "1.20"
 
                     },
                     {
                         "name": "str.cocacola",
-                        "image": "../images/profile-default-svgrepo-com.svg",
+                        "image": "assets/img/profile-default-svgrepo-com.svg",
                         "price": "1.20"
                     },
                     {
                         "name": "str.nestea",
-                        "image": "../images/profile-default-svgrepo-com.svg",
+                        "image": "assets/img/profile-default-svgrepo-com.svg",
                         "price": "1.20"
                     }
                 ]
@@ -38,22 +38,22 @@
         },
         "tapas": {
             "title": "str.tapas",
-            "image": "images/profile-default-svgrepo-com.svg",
+            "image": "assets/img/profile-default-svgrepo-com.svg",
             "menu": {
                 "content": [
                     {
                         "name": "str.marinera",
-                        "image": "images/profile-default-svgrepo-com.svg",
+                        "image": "assets/img/profile-default-svgrepo-com.svg",
                         "price": "1.50"
                     },
                     {
                         "name": "str.marinero",
-                        "image": "images/profile-default-svgrepo-com.svg",
+                        "image": "assets/img/profile-default-svgrepo-com.svg",
                         "price": "1.50"
                     },
                     {
                         "name": "str.pulpo",
-                        "image": "images/profile-default-svgrepo-com.svg",
+                        "image": "assets/img/profile-default-svgrepo-com.svg",
                         "price": "str.segunMercado"
                     }
                 ]
@@ -61,17 +61,17 @@
         },
         "postres": {
             "title": "str.postres",
-            "image": "images/profile-default-svgrepo-com.svg",
+            "image": "assets/img/profile-default-svgrepo-com.svg",
             "menu": {
                 "content": [
                     {
                         "name": "str.marinera",
-                        "image": "images/profile-default-svgrepo-com.svg",
+                        "image": "assets/img/profile-default-svgrepo-com.svg",
                         "price": "1.50"
                     },
                     {
                         "name": "str.marinero",
-                        "image": "images/profile-default-svgrepo-com.svg",
+                        "image": "assets/img/profile-default-svgrepo-com.svg",
                         "price": "1.50"
                     }
                 ]
@@ -83,12 +83,12 @@
                 "content": [
                     {
                         "name": "str.alcachofasconfoie",
-                        "image": "images/alcachofasConFoie.jpg",
+                        "image": "assets/img/jpg/alcachofasConFoie.jpg",
                         "price": "12"
                     },
                     {
                         "name": "str.jamoncocido",
-                        "image": "images/jamoncocido.jpg",
+                        "image": "assets/img/jpg/jamoncocido.jpg",
                         "price": "9"
                     }
                 ]
@@ -111,6 +111,8 @@
             "str.openinghours.hours": "8AM - 16PM. \r\nTuesday: Closed.",
             "str.compartir": "To Share",
             "str.jamoncocido": "",
+            "str.my": "My ",
+            "str.order": "Order",
 
             "str.product": "Product",
             "str.unitprice": "Price",
@@ -119,7 +121,6 @@
             "str.tapas": "Tapas",
             "str.postres": "Dessert",
             "str.bebidas": "Drinks",
-            "str.order": "Order",
             "str.agua": "Water",
             "str.agua.description": "Refresca, es barata",
             "str.cerveza": "Beer",
@@ -143,6 +144,8 @@
             "str.compartir": "Para Compartir",
             "str.alcachofasconfoie": "Alcachofas con Foie y Jamón",
             "str.jamoncocido": "Jamón Cocido",
+            "str.my": "Mi ",
+            "str.order": "Pedido",
 
             "str.product": "Producto",
             "str.unitprice": "Precio",
@@ -155,7 +158,6 @@
             "str.pulpo": "Pulpo",
             "str.bebidas": "Bebidas",
             "str.bebidas.text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            "str.order": "Pedir",
             "str.agua": "Agua",
             "str.agua.description": "Esto es una descripción para poner ingredientes y cosas de esas",
             "str.agua.alergens": "Alérgenos van aquí",
@@ -163,7 +165,8 @@
             "str.cerveza": "Cerveza",
             "str.cocacola": "Coca-Cola",
             "str.nestea": "Nestea",
-            "str.segunMercado": "Según Mercado"
+            "str.segunMercado": "Según Mercado",
+            "str.maplocation": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12595.367135931612!2d-1.3532948!3d37.8873826!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd64872f579e05b1%3A0x874b5c22389897f6!2sLa%20Bodega!5e0!3m2!1sen!2ses!4v1681474684596!5m2!1sen!2ses"
         },
         "fr_FR": {
             "str.agua": "L'eau",
@@ -171,6 +174,6 @@
         }
     },
     "configuration": {
-        "showOrderPrices": true
+        "showOrderPrices": false
     }
 }

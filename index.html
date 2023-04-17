@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.8.3/angular-resource.min.js" integrity="sha512-+ymw+FkoDhPw+7/1DWVtASoICv7lwuvpkbVFqc4ASu1D385wKiLHu4ofOOxhpTlWoza/yIivwwteembPbeBuMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <title ng-bind="translation['str.title']">La Bodega</title>
   <!-- Favicons -->
@@ -46,15 +47,15 @@
           <li><a href="#contact" ng-bind="translation['str.contact']">Contacto</a></li>
           <li class="dropdown"><a href="#"><span>Idioma/Language</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a ng-click="translate('es_ES')"><img src="images/es.svg" class="flags" style="vertical-align: baseline;height: 2em;"/>Español</a></li>
-              <li><a ng-click="translate('en_GB')"><img src="images/gb.svg" class="flags" style="vertical-align: baseline;height: 2em;"/>English</a></li>
-              <!-- <li><a ng-click="translate('fr_FR')"><img src="images/fr.svg" class="flags" style="vertical-align: baseline;height: 2em;"/>Français</a></li> -->
+              <li><a ng-click="translate('es_ES')"><img src="assets/img/es.svg" class="flags" style="vertical-align: baseline;height: 2em;"/>Español</a></li>
+              <li><a ng-click="translate('en_GB')"><img src="assets/img/gb.svg" class="flags" style="vertical-align: baseline;height: 2em;"/>English</a></li>
+              <!-- <li><a ng-click="translate('fr_FR')"><img src="assets/img/fr.svg" class="flags" style="vertical-align: baseline;height: 2em;"/>Français</a></li> -->
             </ul>
           </li>
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" ng-bind="translation['str.myorder']">Mi Pedido</a>
+      <a class="btn-book-a-table button" ng-bind="translation['str.myorder']" href="#myOrder" ng-if="cart.length !== 0">Mi Pedido</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -91,34 +92,78 @@
             <div class="row gy-5">
 
               <div class="col-lg-4 menu-item" ng-repeat="product in content.menu[section].menu.content">
-                <img ng-src="{{product.image}}" class="menu-img img-fluid" alt="">
+                <img ng-src="{{product.image}}" class="menu-img img-fluid" alt="" onerror="this.onerror=null; this.src='assets/img/profile-default-svgrepo-com.svg'">
                 <h4 ng-bind="translation[product.name]"></h4>
                 <p class="ingredients" ng-bind="translation[product.ingredients]"></p>
                 <p class="alergens" ng-bind="translation[product.alergens]"></p>
                 <p class="price" ng-bind="product.price | currency:'€ '"></p>
-                <!-- Not ready -->
-                <!-- <div class="mt-4 text-center" ng-if="!product.nonSelectable">
-                  <a style="display:inline" class="btn btn-primary" ng-click="order(product, -1)">
+
+                <div class="mt-4 text-center" ng-if="!product.nonSelectable">
+                  <a style="display:inline" class="btn btn-primary" ng-click="order(product, -1)" ng-if="orderedAmount(product) !== 0">
                       <i class="fa fa-minus"></i>
-                  </a>
-                  <h3 style="display:inline" class="card-text mb-1 text-center" ng-bind="orderedAmount(product)"></h3>&nbsp;
+                  </a>&nbsp;
+                  <h3 style="display:inline" class="card-text mb-1 text-center" ng-bind="orderedAmount(product)" ng-if="orderedAmount(product) !== 0"></h3>&nbsp;
                   <a style="display:inline" class="btn btn-primary" ng-click="order(product)">
                       <i class="fa fa-plus"></i>
                   </a>
-                </div> -->
+                </div>
+
               </div><!-- Menu Item -->
             </div>
-
-            <!-- <div class="col-lg-4 menu-item">
-              <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-              <h4>Magnam Tiste</h4>
-              <p class="ingredients">Lorem, deren, trataro, filede, nerada</p>
-              <p class="price">$5.95</p>
-            </div> -->
-          </div><!-- End Repeat Menu Content -->
+          </div>
         </div>
       </div>
     </section><!-- End Menu Section -->
+
+    <section id="/myOrder" class="" ng-if="cart.length !== 0">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h2 ng-bind="translation['str.order']">Pedido</h2>
+          <p>{{translation['str.my']}}<span>{{translation['str.order']}}</span></p>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th ng-bind="translation['str.product']" class="text-center"></th>
+                    <th ng-bind="translation['str.units']" class="text-center"></th>
+                    <th ng-bind="translation['str.unitprice']" ng-if="content.configuration.showOrderPrices"></th>
+                    <th ng-bind="translation['str.subtotal']" ng-if="content.configuration.showOrderPrices"></th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="product in cart" style="text-align: center; vertical-align: middle;">
+                <th scope="row"><img ng-src="{{product.image}}" style="height:3em;" onerror="this.onerror=null; this.src='assets/img/profile-default-svgrepo-com.svg'"></th>
+                <td class="text-center"><h3 ng-bind="translation[product.name]"></h3></td>
+                <td class="text-center">
+                  <a style="display:inline" class="btn btn-primary" ng-click="order(product, -1)" ng-if="product.qty > 1">
+                      <i class="fa fa-minus"></i>
+                  </a>
+                  <a style="display:inline" class="btn btn-warning" ng-click="remove(product)" ng-if="1 >= product.qty">
+                      <i class="fa fa-trash"></i>
+                  </a>
+                  &nbsp;<h4 style="display:inline" class="card-text centered" ng-bind="orderedAmount(product)"></h4>&nbsp;
+                  <a style="display:inline" class="btn btn-primary" ng-click="order(product)">
+                      <i class="fa fa-plus"></i>
+                  </a>
+                </td>
+                <td ng-bind="product.price | currency:'€ '" ng-if="content.configuration.showOrderPrices"></td>
+                <td ng-bind="product.qty * product.price | currency:'€ '" ng-if="content.configuration.showOrderPrices"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <th scope="row" ng-if="content.configuration.showOrderPrices">Total</th>
+              <th ng-bind="totalAccount() | currency:'€ '" ng-if="content.configuration.showOrderPrices"></th>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section><!-- End MyOrder Section -->
 
     <!-- ======= Contact Section ======= -->
     <section id="/contact" class="contact">
@@ -130,7 +175,7 @@
         </div>
 
         <div class="mb-3">
-          <iframe style="border:0; width: 100%; height: 350px;" frameborder="0" allowfullscreen src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12595.367135931612!2d-1.3532948!3d37.8873826!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd64872f579e05b1%3A0x874b5c22389897f6!2sLa%20Bodega!5e0!3m2!1sen!2ses!4v1681474684596!5m2!1sen!2ses"></iframe>
+          <iframe style="border:0; width: 100%; height: 350px;" frameborder="0" allowfullscreen src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12595.367135931612!2d-1.3532948!3d37.8873826!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd64872f579e05b1%3A0x874b5c22389897f6!2sLa%20Bodega!5e0!3m2!1sen!2ses!4v1681474684596!5m2!1sen!2ses&language=es"></iframe>
         </div><!-- End Google Maps -->
 
         <div class="row gy-4">
@@ -219,7 +264,7 @@
           $locationProvider.hashPrefix('');
       }])
     .config(['$compileProvider', function ($compileProvider) {
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript|acestream):/);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript|tel):/);
     }]);
   app.service('translationService', function($resource) {
     // From https://plnkr.co/edit/NAaJ9v6kULqtuE0Vk2p4?preview
